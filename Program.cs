@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using System.ComponentModel.Design;
+using Spectre.Console;
 
 public static class Program
 {
@@ -128,6 +129,37 @@ public static class Program
                 Console.WriteLine("Input second number: ");
                 int b = Int32.Parse(Console.ReadLine());
                 Console.WriteLine(a.ToString() + " " + op + " " + b.ToString() + " = " + Convert.ToString(сalculator(a, b, op)));
+                break;
+            }
+
+            case '4':
+            {
+                Console.WriteLine("How old are u? ");
+                int a = Int32.Parse(Console.ReadLine());
+                if (adultChecker(a))
+                {
+                    Console.WriteLine("You are adult!");
+                }
+                else Console.WriteLine("You idiot!");
+
+                break;
+            }
+
+            case '5':
+            {
+                Console.WriteLine("How many degrees is it outside?");
+                int a = Int32.Parse(Console.ReadLine());
+                Console.WriteLine(weatherChecker(a));
+
+                break;
+            }
+
+            case '6':
+            {
+                Console.Write("Input month: ");
+                string a = Console.ReadLine();
+                Console.WriteLine(seasonChecker(a));
+
                 break;
             }
         }
