@@ -9,9 +9,32 @@ public static class Program
         return x * y;
     }
 
+    static bool rectangleMenu()
+    {
+        var rule = new Rule("[red]Calculating the area of rectangle[/]");
+        AnsiConsole.Write(rule);
+        var firstSide = AnsiConsole.Ask<int>("Input [green]first[/] side:");
+        var secondSide = AnsiConsole.Ask<int>("Input [green]second[/] side:");
+        var area = rectangleCalc(Convert.ToInt32(firstSide), Convert.ToInt32(secondSide)).ToString();
+        AnsiConsole.MarkupLine($"Square =  [red]{area}[/]");
+        return true;
+    }
+
     static double triangleCalc(int x, int y)
     {
         return x * y / 2;
+    }
+
+    static bool triangleMenu()
+    {
+        var rule = new Rule("[red]Calculating the area of triangle[/]");
+        AnsiConsole.Write(rule);
+        var firstSide = AnsiConsole.Ask<int>("Input [green]first[/] side:");
+        var secondSide = AnsiConsole.Ask<int>("Input [green]second[/] side:");
+        var area = triangleCalc(Convert.ToInt32(firstSide), Convert.ToInt32(secondSide)).ToString();
+        AnsiConsole.MarkupLine($"Square =  [red]{area}[/]");
+
+        return true;
     }
 
     static double сalculator(int x, int y, char operation)
@@ -80,7 +103,7 @@ public static class Program
                 return "Autumn";
         }
 
-        return "Error";
+        return "Incorrect input";
     }
 
     static bool askToContinue()
@@ -107,7 +130,7 @@ public static class Program
             var operation = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("Select the required operation:")
-                    .PageSize(20)
+                    .PageSize(50)
                     .AddChoices(new[]
                     {
                         "1: Calculating the area of ​​a rectangle",
@@ -122,22 +145,29 @@ public static class Program
             {
                 case '1':
                 {
-                    Console.Write("Input firs side: ");
-                    int a = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Input second side: ");
-                    int b = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Square = " + Convert.ToString(rectangleCalc(a, b)));
+                    /*var rule = new Rule("[red]Calculating the area of ​​a rectangle[/]");
+                    AnsiConsole.Write(rule);
+                        var firstSide = AnsiConsole.Ask<string>("Input [green]first[/] side:");
+                        //Console.Write("Input firs side: ");
+                        //int a = Convert.ToInt32(Console.ReadLine());
+                    var secondSide = AnsiConsole.Ask<string>("Input [green]second[/] side:");
+                        //Console.WriteLine("Input second side: ");
+                        //int b = Convert.ToInt32(Console.ReadLine());
+                    AnsiConsole.WriteLine("Square = " + Convert.ToString(rectangleCalc(Convert.ToInt32(firstSide), Convert.ToInt32(secondSide))));
+                      //  Console.WriteLine("Square = " + Convert.ToString(rectangleCalc(a, b)));*/
+                    rectangleMenu();
                     toContinue = askToContinue();
                     break;
                 }
 
                 case '2':
                 {
-                    Console.WriteLine("Input firs side: ");
+                    /*Console.WriteLine("Input firs side: ");
                     int a = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Input second side: ");
                     int b = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Square = " + Convert.ToString(triangleCalc(a, b)));
+                    Console.WriteLine("Square = " + Convert.ToString(triangleCalc(a, b)));*/
+                    triangleMenu();
                     toContinue = askToContinue();
                     break;
                 }
