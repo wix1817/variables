@@ -122,10 +122,10 @@ public static class Program
             {
                 case '1':
                 {
-                    Console.WriteLine("Input firs side: ");
-                    int a = Int32.Parse(Console.ReadLine());
+                    Console.Write("Input firs side: ");
+                    int a = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Input second side: ");
-                    int b = Int32.Parse(Console.ReadLine());
+                    int b = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Square = " + Convert.ToString(rectangleCalc(a, b)));
                     toContinue = askToContinue();
                     break;
@@ -134,9 +134,9 @@ public static class Program
                 case '2':
                 {
                     Console.WriteLine("Input firs side: ");
-                    int a = Int32.Parse(Console.ReadLine());
+                    int a = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Input second side: ");
-                    int b = Int32.Parse(Console.ReadLine());
+                    int b = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Square = " + Convert.ToString(triangleCalc(a, b)));
                     toContinue = askToContinue();
                     break;
@@ -146,11 +146,11 @@ public static class Program
                 {
                     Console.WriteLine("Hey, this is calculator =)");
                     Console.Write("Input first number: ");
-                    int a = Int32.Parse(Console.ReadLine());
+                    int a = Convert.ToInt32(Console.ReadLine());
                     Console.Write("Input operation(+, -, *, /): ");
                     char op = Convert.ToChar(Console.ReadLine());
                     Console.Write("Input second number: ");
-                    int b = Int32.Parse(Console.ReadLine());
+                    int b = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine(a.ToString() + " " + op + " " + b.ToString() + " = " +
                                       Convert.ToString(сalculator(a, b, op)));
                     toContinue = askToContinue();
@@ -160,7 +160,7 @@ public static class Program
                 case '4':
                 {
                     Console.WriteLine("How old are u? ");
-                    int a = Int32.Parse(Console.ReadLine());
+                    int a = Convert.ToInt32(Console.ReadLine());
                     if (adultChecker(a))
                     {
                         Console.WriteLine("You are adult!");
@@ -173,7 +173,7 @@ public static class Program
                 case '5':
                 {
                     Console.WriteLine("How many degrees is it outside?");
-                    int a = Int32.Parse(Console.ReadLine());
+                    int a = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine(weatherChecker(a));
                     toContinue = askToContinue();
                     break;
