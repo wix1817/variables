@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.Design;
+using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using Spectre.Console;
 
@@ -9,9 +9,32 @@ public static class Program
         return x * y;
     }
 
+    static bool rectangleMenu()
+    {
+        var rule = new Rule("[red]Calculating the area of rectangle[/]");
+        AnsiConsole.Write(rule);
+        var firstSide = AnsiConsole.Ask<int>("Input [green]first[/] side:");
+        var secondSide = AnsiConsole.Ask<int>("Input [green]second[/] side:");
+        var area = rectangleCalc(Convert.ToInt32(firstSide), Convert.ToInt32(secondSide)).ToString();
+        AnsiConsole.MarkupLine($"Square =  [red]{area}[/]");
+        return true;
+    }
+
     static double triangleCalc(int x, int y)
     {
         return x * y / 2;
+    }
+
+    static bool triangleMenu() 
+    {
+        var rule = new Rule("[red]Calculating the area of triangle[/]");
+        AnsiConsole.Write(rule);
+        var firstSide = AnsiConsole.Ask<int>("Input [green]first[/] side:");
+        var secondSide = AnsiConsole.Ask<int>("Input [green]second[/] side:");
+        var area = triangleCalc(Convert.ToInt32(firstSide), Convert.ToInt32(secondSide)).ToString();
+        AnsiConsole.MarkupLine($"Square =  [red]{area}[/]");
+
+        return true;
     }
 
     static double сalculator(int x, int y, char operation)
@@ -28,10 +51,36 @@ public static class Program
                 return x * y;
 
             case '/':
-                return x / y;
+                if (y != 0)
+                {
+                    return x / y;
+                }
+                else return 0;
         }
 
         return 0;
+    }
+
+    static bool calculatorMenu()
+    {
+        var rule = new Rule("[red]CALCULATOR[/]");
+        rule.Centered();
+        AnsiConsole.Write(rule);
+
+        var firstNumber = AnsiConsole.Ask<int>("Input [green]first[/] number:");
+        var choose = AnsiConsole.Prompt(new SelectionPrompt<string>()
+            .Title("Choose operation")
+            .MoreChoicesText("[grey](Move up and down to reveal more choose)[/]")
+            .AddChoices(new[]
+            {
+                "+", "-", "*", "/"
+            }));
+        AnsiConsole.MarkupLine("You selected: [yellow]{0}[/]", choose);
+        var secondNumber = AnsiConsole.Ask<int>("Input [green]second[/] number:");
+        var result = Convert.ToString(сalculator(firstNumber, secondNumber, Convert.ToChar(choose)));
+        AnsiConsole.MarkupLine(
+            firstNumber.ToString() + " " + choose + " " + secondNumber.ToString() + " = [red]{0}[/]", result);
+        return true;
     }
 
     static bool adultChecker(int age)
@@ -43,19 +92,46 @@ public static class Program
         return true;
     }
 
+    static bool adultCheckerMenu()
+    {
+        var rule = new Rule("[red]ADULT CHECKER[/]");
+        rule.Centered();
+        AnsiConsole.Write(rule);
+
+        var age = AnsiConsole.Ask<int>("Insert you [green]age[/]:");
+        if (adultChecker(age))
+        {
+            AnsiConsole.MarkupLine("You are [green]adult![/]");
+        }
+        else AnsiConsole.MarkupLine("You are [red]not adult[/]!");
+        return true;
+    }
+
     static string weatherChecker(int degree)
     {
         if (degree < 0)
-            return "Very cold";
+            return "[navy]Very cold[/]";
         if (degree < 10)
-            return "Cold";
+            return "[teal]Cold[/]";
         if (degree < 20)
-            return "Normal";
+            return "[wheat4]Normal[/]";
         if (degree < 30)
-            return "Warm";
+            return "[gold3_1]Warm[/]";
         if (degree >= 30)
-            return "Heat";
+            return "[darkred_1]Heat[/]";
         return "Error";
+    }
+
+    static bool weatherCheckerMenu()
+    {
+        var rule = new Rule("[red]WEATHER CHECKER[/]");
+        rule.Centered();
+        AnsiConsole.Write(rule);
+
+        var degree = AnsiConsole.Ask<int>("How many [green]degrees[/] is it outside?:");
+        AnsiConsole.MarkupLine(weatherChecker(degree));
+
+        return true;
     }
 
     static string seasonChecker(string month)
@@ -80,7 +156,28 @@ public static class Program
                 return "Autumn";
         }
 
-        return "Error";
+        return "Incorrect input";
+    }
+
+    static bool seasonCheckerMenu()
+    {
+        var rule = new Rule("[red]SEASON CHECKER[/]");
+        rule.Centered();
+        AnsiConsole.Write(rule);
+
+        var month = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("Choose [green]month[/]?")
+                .PageSize(10)
+                .AddChoices(new[] {
+                    "January", "February", "March",
+                    "April", "May", "June",
+                    "July", "August", "September",
+                    "October", "November", "December"
+                }));
+        AnsiConsole.MarkupLine(month + " in " + seasonChecker(month));
+
+        return true;
     }
 
     static bool askToContinue()
@@ -107,84 +204,64 @@ public static class Program
             var operation = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("Select the required operation:")
-                    .PageSize(20)
+                    .PageSize(50)
                     .AddChoices(new[]
                     {
-                        "1: Calculating the area of ​​a rectangle",
-                        "2: Calculating the area of ​​a triangle",
+                        "1: Calculating the area of a rectangle",
+                        "2: Calculating the area of a triangle",
                         "3: Calculator",
                         "4: Adult checker",
                         "5: Temperature checker",
-                        "6: Season checker"
+                        "6: Season checker",
+                        "0: Exit"
                     }));
 
             switch (operation.First())
             {
                 case '1':
                 {
-                    Console.Write("Input firs side: ");
-                    int a = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Input second side: ");
-                    int b = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Square = " + Convert.ToString(rectangleCalc(a, b)));
+                    rectangleMenu();
                     toContinue = askToContinue();
                     break;
                 }
 
                 case '2':
                 {
-                    Console.WriteLine("Input firs side: ");
-                    int a = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Input second side: ");
-                    int b = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Square = " + Convert.ToString(triangleCalc(a, b)));
+                    triangleMenu();
                     toContinue = askToContinue();
                     break;
                 }
 
                 case '3':
                 {
-                    Console.WriteLine("Hey, this is calculator =)");
-                    Console.Write("Input first number: ");
-                    int a = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("Input operation(+, -, *, /): ");
-                    char op = Convert.ToChar(Console.ReadLine());
-                    Console.Write("Input second number: ");
-                    int b = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine(a.ToString() + " " + op + " " + b.ToString() + " = " +
-                                      Convert.ToString(сalculator(a, b, op)));
+                    calculatorMenu();
                     toContinue = askToContinue();
                     break;
                 }
 
                 case '4':
                 {
-                    Console.WriteLine("How old are u? ");
-                    int a = Convert.ToInt32(Console.ReadLine());
-                    if (adultChecker(a))
-                    {
-                        Console.WriteLine("You are adult!");
-                    }
-                    else Console.WriteLine("You are not adult!");
+                    adultCheckerMenu();
                     toContinue = askToContinue();
                     break;
                 }
 
                 case '5':
                 {
-                    Console.WriteLine("How many degrees is it outside?");
-                    int a = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine(weatherChecker(a));
+                    weatherCheckerMenu();
                     toContinue = askToContinue();
                     break;
                 }
 
                 case '6':
                 {
-                    Console.Write("Input month: ");
-                    string a = Console.ReadLine();
-                    Console.WriteLine(seasonChecker(a));
+                    seasonCheckerMenu();
                     toContinue = askToContinue();
+                    break;
+                }
+                case '0':
+                {
+                    Environment.Exit(0);
                     break;
                 }
             }
