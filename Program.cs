@@ -153,7 +153,7 @@ public static class Program
                     int b = Int32.Parse(Console.ReadLine());
                     Console.WriteLine(a.ToString() + " " + op + " " + b.ToString() + " = " +
                                       Convert.ToString(сalculator(a, b, op)));
-                    askToContinue();
+                    toContinue = askToContinue();
                     break;
                 }
 
@@ -166,7 +166,7 @@ public static class Program
                         Console.WriteLine("You are adult!");
                     }
                     else Console.WriteLine("You are not adult!");
-                    askToContinue();
+                    toContinue = askToContinue();
                     break;
                 }
 
@@ -175,7 +175,7 @@ public static class Program
                     Console.WriteLine("How many degrees is it outside?");
                     int a = Int32.Parse(Console.ReadLine());
                     Console.WriteLine(weatherChecker(a));
-                    askToContinue();
+                    toContinue = askToContinue();
                     break;
                 }
 
@@ -184,7 +184,7 @@ public static class Program
                     Console.Write("Input month: ");
                     string a = Console.ReadLine();
                     Console.WriteLine(seasonChecker(a));
-                    askToContinue();
+                    toContinue = askToContinue();
                     break;
                 }
             }
