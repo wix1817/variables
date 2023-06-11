@@ -34,6 +34,8 @@ public readonly struct Calculator
                     return _firstNumber / _secondNumber;
                 }
                 else return 0;
+            case '%':
+                return _firstNumber % 1 != 0 || _secondNumber % 1 != 0 ? 0 : _firstNumber % _secondNumber;    
         }
 
         return 0;
@@ -45,16 +47,16 @@ public readonly struct Calculator
         rule.Centered();
         AnsiConsole.Write(rule);
 
-        var firstNumber = AnsiConsole.Ask<int>("Input [green]first[/] number:");
+        var firstNumber = AnsiConsole.Ask<double>("Input [green]first[/] number:");
         var choose = AnsiConsole.Prompt(new SelectionPrompt<string>()
             .Title("Choose operation")
             .MoreChoicesText("[grey](Move up and down to reveal more choose)[/]")
             .AddChoices(new[]
             {
-                "+", "-", "*", "/"
+                "+", "-", "*", "/", "%"
             }));
         AnsiConsole.MarkupLine("You selected: [yellow]{0}[/]", choose);
-        var secondNumber = AnsiConsole.Ask<int>("Input [green]second[/] number:");
+        var secondNumber = AnsiConsole.Ask<double>("Input [green]second[/] number:");
         var calculator = new Calculator(firstNumber, secondNumber, Convert.ToChar(choose));
         var result = calculator.Calculate();
 
